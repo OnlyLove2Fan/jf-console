@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>使用HTML标签进行校验</title>
+<script type="text/javascript" src="../res/jquery/jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="../res/jquery/plugins/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../res/jquery/plugins/jquery.validate.message_cn.js"></script>
+<script type="text/javascript">
+// 设置校验器的默认配置
+$.validator.setDefaults({
+	// 表单提交之后的回调方法
+	submitHandler: function(form) {
+		alert("submitted!");
+		// 提交表单,form是当前的表单对象
+		//form.submit();
+	}
+});
+
+// 页面元素加载完毕之后
+$().ready(function(){
+	// 当表单提交的时候，进行验证
+	$("#testForm").validate();
+});
+
+</script>
+</head>
+<body>
+
+<form action="" id="testForm">
+	<h4>用户名:</h4>
+	<input type="text" id="name" name="name" minlength="2" required="required">
+	
+	<h4>邮箱:</h4>
+	<input type="email" id="email" name="email">
+	
+	<h4>url:</h4>
+	<input type="url" id="url" name="url">
+	
+	<h4>性别:</h4>
+	<input type="radio" name="sex" value="1" required="required">男
+	<input type="radio" name="sex" value="2">女
+	
+	
+	<input type="submit" value="提交">
+</form>
+</body>
+</html>

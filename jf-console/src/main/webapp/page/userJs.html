@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>使用JS标签进行校验</title>
+<link href="../res/extjs/resources/css/ext-all.css" rel="stylesheet" />
+<link href="../theme/gray/css/base.css" rel="stylesheet" />
+<link href="../theme/gray/css/ext/ext.css" rel="stylesheet" />
+<link href="../theme/gray/css/main.css" rel="stylesheet" />
+<script type="text/javascript" src="../res/jquery/jquery-1.6.4.min.js"></script>
+<script type="text/javascript"src="../res/jquery/plugins/jquery.validate.min.js"></script>
+<script type="text/javascript"src="../res/jquery/plugins/jquery.validate.message_cn.js"></script>
+<script type="text/javascript">
+// 设置校验器的默认配置
+$.validator.setDefaults({
+	// 表单提交之后的回调方法
+	submitHandler: function(form) {
+		alert("submitted!");
+		// 提交表单,form是当前的表单对象
+		//form.submit();
+	}
+});
+
+
+$.validator.addMethod("af",function(value,element,params){  
+	if(value.length>1){
+		return false;
+	}
+	if(value>=params[0] && value<=params[1]){
+	    return true;
+	}else{
+	 	return false;
+	}
+},"必须是一个字母，且a-f");
+
+// 页面元素加载完毕之后
+$().ready(function(){
+	// 当表单提交的时候，进行验证
+	$("#testForm").validate({
+		
+		errorClass : "ver-error",
+		validClass : "ver-right",
+		
+		success : function(label){
+		    label.addClass("checked");
+		},
+		
+		rules :{
+			name : {
+				af:["a","f"]
+			},
+			email : {
+				required : true,
+				email : true
+			},
+			url : "required",
+			sex : {
+				required : true
+			}
+		},
+		messages:{
+			email : {
+				required : "亲，忘记填写邮箱啦！",
+				email : "亲，您写的好像不是邮箱！"
+			},
+			url : "亲，忘记填写URL啦!",
+			sex : "亲，选一个呗！"
+		}
+	});
+	
+	
+});
+</script>
+</head>
+<body>
+
+	<form action="" id="testForm">
+		<h4>用户名:</h4>
+		<input class="input-text" type="text" id="name" name="name">
+
+		<h4>邮箱:</h4>
+		<input class="input-text" type="text" id="email" name="email">
+
+		<h4>url:</h4>
+		<input class="input-text" type="text" id="url" name="url">
+
+		<h4>性别:</h4>
+		<input type="radio" name="sex" value="1">男 <input type="radio"
+			name="sex" value="2">女 <input type="submit" value="提交">
+	</form>
+</body>
+</html>

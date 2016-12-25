@@ -1,0 +1,15 @@
+重要问题：
+
+在一个Mapper.xml中不能尝试绑定另一个对应的类，
+负责会出现无效的绑定，（未找到的错误）
+
+
+角色功能信息的修改未完待续......
+完成 2016年12月2日 16:50:43
+
+当表不是自增，我们添加记录时需要作如下设置
+<insert id="insertSelective" parameterType="com.atguigu.jf.console.user.bean.pojo.SysOp" >
+    <selectKey resultType="java.lang.Long" keyProperty="opId" order="BEFORE" >
+      SELECT nextval('sys_op')   <!--此处的值为表名-->
+    </selectKey>
+    insert into sys_op
